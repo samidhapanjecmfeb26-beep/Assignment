@@ -1,0 +1,290 @@
+SQL Exercise 1    
+    
+1. mysql> create table SEMP(EmpNO char(4), EmpName char(20), Basic float,DeptNo Char(2), DeptHead char(4));
+Query OK, 0 rows affected (1.911 sec)
+
+mysql> insert into SEMP(EmpNO, EmpName, Basic,DeptNo, DeptHead) values (0001, 'SUNIL', 6000, 10);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into SEMP(EmpNO, EmpName, Basic,DeptNo, DeptHead) values (0001, 'SUNIL', 6000, 10, Null);
+Query OK, 1 row affected (0.056 sec)
+
+mysql> insert into SEMP(EmpNO, EmpName, Basic,DeptNo, DeptHead) values (0002, 'HIREN', 8000, 20, Null);
+Query OK, 1 row affected (0.031 sec)
+
+mysql> insert into SEMP(EmpNO, EmpName, Basic,DeptNo, DeptHead) values (0003, 'ALI', 4000, 10, 0001);
+Query OK, 1 row affected (0.038 sec)
+
+mysql> insert into SEMP(EmpNO, EmpName, Basic,DeptNo, DeptHead) values (0004, 'GEORGE', 6000, Null, 0002);
+Query OK, 1 row affected (0.047 sec)
+
+mysql> select *from SEMP;
++-------+---------+-------+--------+----------+
+| EmpNO | EmpName | Basic | DeptNo | DeptHead |
++-------+---------+-------+--------+----------+
+| 1     | SUNIL   |  6000 | 10     | NULL     |
+| 2     | HIREN   |  8000 | 20     | NULL     |
+| 3     | ALI     |  4000 | 10     | 1        |
+| 4     | GEORGE  |  6000 | NULL   | 2        |
++-------+---------+-------+--------+----------+
+4 rows in set (0.010 sec)
+ 
+    
+2. mysql> create table SDEPT(DeptNo char(2), DeptName char(15));
+Query OK, 0 rows affected (0.286 sec)
+
+mysql> insert into SDEPT(DeptNo, DeptName) values(10, 'Development');
+Query OK, 1 row affected (0.595 sec)
+
+mysql> insert into SDEPT(DeptNo, DeptName) values(20, 'Training');
+Query OK, 1 row affected (0.037 sec)
+
+mysql> select *from SDEPT;
++--------+-------------+
+| DeptNo | DeptName    |
++--------+-------------+
+| 10     | Development |
+| 20     | Training    |
++--------+-------------+
+2 rows in set (0.007 sec)
+   
+    
+3. mysql> create table s (`s#` varchar(5) primary key, sname varchar(50), status int, city varchar(50));
+Query OK, 0 rows affected (0.445 sec)
+
+mysql> insert into s values ('s1','ram',10,'pune');
+Query OK, 1 row affected (0.086 sec)
+
+mysql> insert into s values ('s2','shyam',20,'mumbai');
+Query OK, 1 row affected (0.043 sec)
+
+mysql> insert into s values ('s3','amit',30,'delhi');
+Query OK, 1 row affected (0.039 sec)
+
+mysql> insert into s values ('s4','ravi',20,'pune');
+Query OK, 1 row affected (0.035 sec)
+
+mysql> insert into s values ('s5','neha',10,'chennai');
+Query OK, 1 row affected (0.031 sec)
+
+mysql> select *from s;
++----+-------+--------+---------+
+| s# | sname | status | city    |
++----+-------+--------+---------+
+| s1 | ram   |     10 | pune    |
+| s2 | shyam |     20 | mumbai  |
+| s3 | amit  |     30 | delhi   |
+| s4 | ravi  |     20 | pune    |
+| s5 | neha  |     10 | chennai |
++----+-------+--------+---------+
+5 rows in set (0.016 sec)
+
+mysql> create table p (`p#` varchar(5) primary key, pname varchar(50), color varchar(20), weight int, city varchar(50));
+Query OK, 0 rows affected (0.297 sec)
+
+mysql> insert into p values ('p1','bolt','red',12,'pune');
+Query OK, 1 row affected (0.052 sec)
+
+mysql> insert into p values ('p2','nut','blue',17,'mumbai');
+Query OK, 1 row affected (0.044 sec)
+
+mysql> insert into p values ('p3','screw','green',10,'delhi');
+Query OK, 1 row affected (0.041 sec)
+
+mysql> insert into p values ('p4','cam','black',14,'chennai');
+Query OK, 1 row affected (0.035 sec)
+
+mysql> insert into p values ('p5','cog','red',19,'pune');
+Query OK, 1 row affected (0.037 sec)
+
+mysql> select *from p;
++----+-------+-------+--------+---------+
+| p# | pname | color | weight | city    |
++----+-------+-------+--------+---------+
+| p1 | bolt  | red   |     12 | pune    |
+| p2 | nut   | blue  |     17 | mumbai  |
+| p3 | screw | green |     10 | delhi   |
+| p4 | cam   | black |     14 | chennai |
+| p5 | cog   | red   |     19 | pune    |
++----+-------+-------+--------+---------+
+5 rows in set (0.008 sec)
+
+
+mysql> create table j (`j#` varchar(5) primary key, jname varchar(50), city varchar(50));
+Query OK, 0 rows affected (0.274 sec)
+
+mysql> insert into j values ('j1','bridge','pune');
+Query OK, 1 row affected (0.060 sec)
+
+mysql> insert into j values ('j2','road','mumbai');
+Query OK, 1 row affected (0.043 sec)
+
+mysql> insert into j values ('j3','dam','delhi');
+Query OK, 1 row affected (0.035 sec)
+
+mysql> insert into j values ('j4','building','chennai');
+Query OK, 1 row affected (0.041 sec)
+
+mysql> insert into j values ('j5','airport','pune');
+Query OK, 1 row affected (0.031 sec)
+
+mysql> select *from j;
++----+----------+---------+
+| j# | jname    | city    |
++----+----------+---------+
+| j1 | bridge   | pune    |
+| j2 | road     | mumbai  |
+| j3 | dam      | delhi   |
+| j4 | building | chennai |
+| j5 | airport  | pune    |
++----+----------+---------+
+5 rows in set (0.010 sec)
+
+mysql> create table spj (`s#` varchar(5), `p#` varchar(5), `j#` varchar(5), qty int, primary key (`s#`, `p#`, `j#`), foreign key (`s#`) references s(`s#`), foreign key (`p#`) references p(`p#`), foreign key (`j#`) references j(`j#`));
+Query OK, 0 rows affected (0.660 sec)
+
+mysql> insert into spj values ('s1','p1','j1',200);
+Query OK, 1 row affected (0.095 sec)
+
+mysql> insert into spj values ('s2','p2','j2',300);
+Query OK, 1 row affected (0.040 sec)
+
+mysql> insert into spj values ('s3','p3','j3',150);
+Query OK, 1 row affected (0.033 sec)
+
+mysql> insert into spj values ('s4','p4','j4',400);
+Query OK, 1 row affected (0.034 sec)
+
+mysql> insert into spj values ('s5','p5','j5',250);
+Query OK, 1 row affected (0.033 sec)
+
+mysql> select *from spj;
++----+----+----+------+
+| s# | p# | j# | qty  |
++----+----+----+------+
+| s1 | p1 | j1 |  200 |
+| s2 | p2 | j2 |  300 |
+| s3 | p3 | j3 |  150 |
+| s4 | p4 | j4 |  400 |
+| s5 | p5 | j5 |  250 |
++----+----+----+------+
+5 rows in set (0.008 sec)
+
+
+Write the SELECT queries to do the following:-    
+    
+5. Display all the data from the S table.  
+
+ANS:- 
+mysql> select *from s;
++----+-------+--------+---------+
+| s# | sname | status | city    |
++----+-------+--------+---------+
+| s1 | ram   |     10 | pune    |
+| s2 | shyam |     20 | mumbai  |
+| s3 | amit  |     30 | delhi   |
+| s4 | ravi  |     20 | pune    |
+| s5 | neha  |     10 | chennai |
++----+-------+--------+---------+
+5 rows in set (0.035 sec)
+  
+    
+6. Display only the S# and SNAME fields from the S table.    
+ANS:-
+mysql> select `s#`, sname from s;
++----+-------+
+| s# | sname |
++----+-------+
+| s1 | ram   |
+| s2 | shyam |
+| s3 | amit  |
+| s4 | ravi  |
+| s5 | neha  |
++----+-------+
+5 rows in set (0.010 sec)
+
+    
+7. Display the PNAME and COLOR from the P table for the CITY=”London”.  
+ANS:-
+mysql> select pname, color from p where city = 'London';
+Empty set (0.028 sec)
+    
+8. Display all the Suppliers from London.    
+ANS:- 
+mysql> select *from s where city = 'London';
+Empty set (0.016 sec)
+    
+9. Display all the Suppliers from Paris or Athens. 
+ANS:-
+mysql> select *from s where city IN ('Paris', 'Athens');
+Empty set (0.009 sec)   
+    
+10. Display all the Projects in Athens.
+ANS:-
+mysql> select *from p where city = 'Athens';
+Empty set (0.013 sec)    
+    
+11. Display all the Partnames with the weight between 12 and 14 (inclusive of both).    
+ANS:-
+mysql> select pname from p where weight between 12 and 14;
++-------+
+| pname |
++-------+
+| bolt  |
+| cam   |
++-------+
+2 rows in set (0.015 sec)
+    
+12. Display all the Suppliers with a Status greater than or equal to 20. 
+ANS:-
+mysql> select *from s where status >= 20;
++----+-------+--------+--------+
+| s# | sname | status | city   |
++----+-------+--------+--------+
+| s2 | shyam |     20 | mumbai |
+| s3 | amit  |     30 | delhi  |
+| s4 | ravi  |     20 | pune   |
++----+-------+--------+--------+
+3 rows in set (0.009 sec)
+    
+13. Display all the Suppliers except the Suppliers from London.    
+ANS:-
+mysql> select *from s where city not like 'London';
++----+-------+--------+---------+
+| s# | sname | status | city    |
++----+-------+--------+---------+
+| s1 | ram   |     10 | pune    |
+| s2 | shyam |     20 | mumbai  |
+| s3 | amit  |     30 | delhi   |
+| s4 | ravi  |     20 | pune    |
+| s5 | neha  |     10 | chennai |
++----+-------+--------+---------+
+5 rows in set (0.018 sec)
+    
+14. Display only the Cities from where the Suppliers come from.    
+ANS:- 
+mysql> select city from s;
++---------+
+| city    |
++---------+
+| pune    |
+| mumbai  |
+| delhi   |
+| pune    |
+| chennai |
++---------+
+5 rows in set (0.009 sec)
+    
+15. Assuming that the Part Weight is in GRAMS, display the same in 
+MILLIGRAMS and KILOGRAMS.   
+ANS:-
+mysql> select pname, weight as grams, weight*1000 as milligrams, weight/1000 as kilograms from p;
++-------+-------+------------+-----------+
+| pname | grams | milligrams | kilograms |
++-------+-------+------------+-----------+
+| bolt  |    12 |      12000 |    0.0120 |
+| nut   |    17 |      17000 |    0.0170 |
+| screw |    10 |      10000 |    0.0100 |
+| cam   |    14 |      14000 |    0.0140 |
+| cog   |    19 |      19000 |    0.0190 |
++-------+-------+------------+-----------+
+5 rows in set (0.031 sec)
