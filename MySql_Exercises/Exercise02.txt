@@ -1,0 +1,74 @@
+SQL Exercise 2   
+1. Display the Supplier table in the descending order of CITY.  
+ANS:-
+ mysql> select *from s order by city desc;
++----+-------+--------+---------+
+| s# | sname | status | city    |
++----+-------+--------+---------+
+| s1 | ram   |     10 | pune    |
+| s4 | ravi  |     20 | pune    |
+| s2 | shyam |     20 | mumbai  |
+| s3 | amit  |     30 | delhi   |
+| s5 | neha  |     10 | chennai |
++----+-------+--------+---------+
+5 rows in set (0.010 sec)
+
+2. Display the Part Table in the ascending order of CITY and within the city in the ascending order of Part names. 
+ANS:-
+mysql> select *from p order by city asc, pname asc;
++----+-------+-------+--------+---------+
+| p# | pname | color | weight | city    |
++----+-------+-------+--------+---------+
+| p4 | cam   | black |     14 | chennai |
+| p3 | screw | green |     10 | delhi   |
+| p2 | nut   | blue  |     17 | mumbai  |
+| p1 | bolt  | red   |     12 | pune    |
+| p5 | cog   | red   |     19 | pune    |
++----+-------+-------+--------+---------+
+5 rows in set (0.013 sec)
+
+3. Display all the Suppliers with a status between 10 and 20.   
+ANS:-
+mysql> select *from s where status between 10 and 20;
++----+-------+--------+---------+
+| s# | sname | status | city    |
++----+-------+--------+---------+
+| s1 | ram   |     10 | pune    |
+| s2 | shyam |     20 | mumbai  |
+| s4 | ravi  |     20 | pune    |
+| s5 | neha  |     10 | chennai |
++----+-------+--------+---------+
+4 rows in set (0.011 sec)
+
+
+4. Display all the Parts and their Weight, which are not in the range of 10 and 15.   
+ANS:-
+mysql> select pname , weight from p where weight not between 10 and 15;
++-------+--------+
+| pname | weight |
++-------+--------+
+| nut   |     17 |
+| cog   |     19 |
++-------+--------+
+2 rows in set (0.013 sec)
+
+5. Display all the Part names starting with the letter ‘S’.   
+ANS:-
+mysql> select *from p where pname like 'S%';
++----+-------+-------+--------+-------+
+| p# | pname | color | weight | city  |
++----+-------+-------+--------+-------+
+| p3 | screw | green |     10 | delhi |
++----+-------+-------+--------+-------+
+1 row in set (0.010 sec)
+
+
+6. Display all the Suppliers, belonging to cities starting with the letter ‘L’.
+ANS:-
+mysql> select *from s where city like 'L%';
+Empty set (0.015 sec)
+
+7. Display all the Projects, with the third letter in JNAME as ‘n’.
+ANS:-
+mysql> select *from j where jname like '__n%';
+Empty set (0.009 sec)
