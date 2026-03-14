@@ -1,0 +1,79 @@
+Summarizing Data with Aggregate Functions.
+
+
+1) Write a query that counts all orders for October 3. 
+ANS:-
+mysql> select count(*) from orders where Odate = '1990-10-03';
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.052 sec)
+
+2) Write a query that counts the number of different non-NULL city values in the Customers table.
+ANS:-
+mysql> select count(Distinct City) from customers;
++----------------------+
+| count(Distinct City) |
++----------------------+
+|                    4 |
++----------------------+
+1 row in set (0.090 sec) 
+
+3) Write a query that selects each customer’s smallest order.
+ANS:-
+mysql> select Cnum, min(Amt) from orders group by Cnum;
++------+----------+
+| Cnum | min(Amt) |
++------+----------+
+| 2008 |    18.69 |
+| 2001 |   767.19 |
+| 2007 |  1900.10 |
+| 2003 |  5160.45 |
+| 2002 |  1713.23 |
+| 2004 |    75.75 |
+| 2006 |  4723.00 |
++------+----------+
+7 rows in set (0.030 sec)
+
+ 
+4) Write a query that selects the first customer, in alphabetical order, whose name begins with G. 
+ANS:-
+mysql> select *from customers where Cname like 'G%' order by Cname limit 1;
++------+----------+------+--------+------+
+| Cnum | Cname    | City | Rating | Snum |
++------+----------+------+--------+------+
+| 2002 | Giovanni | Rome |    200 | 1003 |
++------+----------+------+--------+------+
+1 row in set (0.047 sec)
+
+5) Write a query that selects the highest rating in each city. 
+ANS:-
+mysql> select city, max(rating) as hightest_rating from customers group by City;
++----------+-----------------+
+| city     | hightest_rating |
++----------+-----------------+
+| London   |             100 |
+| Rome     |             200 |
+| San Jose |             300 |
+| Berlin   |             300 |
++----------+-----------------+
+4 rows in set (0.025 sec)
+
+6) Write a query that counts the number of salespeople registering orders for each 
+day. (If a salesperson has more than one order on a given day, he or she should be 
+counted only once.).
+ANS:-
+mysql> SELECT Odate, COUNT(DISTINCT Snum) AS Salespeople_Count FROM orders GROUP BY Odate;
++------------+-------------------+
+| Odate      | Salespeople_Count |
++------------+-------------------+
+| 1990-10-03 |                 4 |
+| 1990-10-04 |                 2 |
+| 1990-10-05 |                 1 |
+| 1990-10-06 |                 2 |
++------------+-------------------+
+4 rows in set (0.036 sec)
+
+
