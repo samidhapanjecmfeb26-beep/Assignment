@@ -1,0 +1,131 @@
+
+1. Display the Supplier name and the Quantity sold.   
+ANS:-
+mysql> select s.sname, spj.qty from s join spj on s.`s#` = spj.`s#`;
++-------+------+
+| sname | qty  |
++-------+------+
+| ram   |  200 |
+| shyam |  300 |
+| amit  |  150 |
+| ravi  |  400 |
+| neha  |  250 |
++-------+------+
+5 rows in set (0.043 sec)
+
+2. Display the Part name and Quantity sold.  
+ANS:-
+mysql> select p.pname, spj.qty from p join spj on p.`p#` = spj.`p#`;
++-------+------+
+| pname | qty  |
++-------+------+
+| bolt  |  200 |
+| nut   |  300 |
+| screw |  150 |
+| cam   |  400 |
+| cog   |  250 |
++-------+------+
+5 rows in set (0.035 sec)
+
+3. Display the Project name and Quantity sold.  
+ANS:-
+ mysql> select j.jname, spj.qty from j join spj on j.`j#` = spj.`j#`;
++----------+------+
+| jname    | qty  |
++----------+------+
+| bridge   |  200 |
+| road     |  300 |
+| dam      |  150 |
+| building |  400 |
+| airport  |  250 |
++----------+------+
+5 rows in set (0.019 sec)
+
+4. Display the Supplier name, Part name, Project name and Quantity sold.
+ANS:-
+ mysql> select s.sname, p.pname, j.jname, spj.qty from spj join s on spj.`s#` = s.`s#` join p on spj.`p#` = p.`p#` join j on spj.`j#` = j.`j#`;
++-------+-------+----------+------+
+| sname | pname | jname    | qty  |
++-------+-------+----------+------+
+| ram   | bolt  | bridge   |  200 |
+| shyam | nut   | road     |  300 |
+| amit  | screw | dam      |  150 |
+| ravi  | cam   | building |  400 |
+| neha  | cog   | airport  |  250 |
++-------+-------+----------+------+
+5 rows in set (0.015 sec)
+  
+5. Display the Supplier name, Supplying Parts to a Project in the same City.
+ANS:-
+  mysql> select s.sname from spj join s on spj.`s#` = s.`s#` join j on spj.`j#` = j.`j#` where s.city = j.city;
++-------+
+| sname |
++-------+
+| ram   |
+| shyam |
+| amit  |
++-------+
+3 rows in set (0.011 sec)
+ 
+6. Display the Part name that is ‘Red’ is color, and the Quantity sold. 
+ANS:-
+  mysql> select p.pname, spj.qty from p join spj on p.`p#` = spj.`p#` where p.color = 'red';
++-------+------+
+| pname | qty  |
++-------+------+
+| bolt  |  200 |
+| cog   |  250 |
++-------+------+
+2 rows in set (0.013 sec)
+
+7. Display all the Quantity sold by Suppliers with the Status = 20.
+ANS:-
+mysql> select spj.qty from spj join s on spj.`s#` = s.`s#` where s.status = 20;
++------+
+| qty  |
++------+
+|  300 |
+|  400 |
++------+
+2 rows in set (0.020 sec)
+   
+8. Display all the Parts and Quantity with a Weight > 14.   
+ANS:-
+mysql> select p.pname, spj.qty from p join spj on p.`p#` = spj.`p#` where p.weight > 14;
++-------+------+
+| pname | qty  |
++-------+------+
+| nut   |  300 |
+| cog   |  250 |
++-------+------+
+2 rows in set (0.014 sec)
+
+9. Display all the Project names and City, which has bought more than 500 Parts.
+ANS:-
+mysql> select j.jname, j.city from j join spj on j.`j#` = spj.`j#` where spj.qty > 500;
+Empty set (0.011 sec)
+   
+10. Display all the Part names and Quantity sold that have a Weight less than 15.  
+ANS:-
+ mysql> select p.pname, spj.qty from p join spj on p.`p#` = spj.`p#` where p.weight < 15;
++-------+------+
+| pname | qty  |
++-------+------+
+| bolt  |  200 |
+| screw |  150 |
+| cam   |  400 |
++-------+------+
+3 rows in set (0.009 sec)
+
+11. Display all the Employee names and the name of their Managers.  
+ANS:-
+mysql> select e1.ename as employee, e2.ename as manager from emp e1 join emp e2 on e1.mgr = e2.empno;
++----------+---------+
+| employee | manager |
++----------+---------+
+| kiran    | arun    |
+| ali      | arun    |
+| thomas   | jack    |
+| arun     | jack    |
++----------+---------+
+4 rows in set (0.009 sec)
