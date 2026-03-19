@@ -1,0 +1,58 @@
+Views.
+
+1) Create a view that shows all of the customers who have the highest ratings. 
+ANS:-
+mysql> create view highest_customers as select * from customers where rating = (select max(rating) from customers);
+Query OK, 0 rows affected (0.215 sec)
+mysql> select * from highest_customers;
++------+----------+----------+--------+------+
+| Cnum | Cname    | City     | Rating | Snum |
++------+----------+----------+--------+------+
+| 2002 | Giovanni | Rome     |    300 | 1003 |
+| 2004 | Grass    | Berlin   |    300 | 1004 |
+| 2008 | Cisneros | San Jose |    300 | 1007 |
++------+----------+----------+--------+------+
+3 rows in set (0.012 sec)
+
+2) Create a view that shows the number of salespeople in each city. 
+ANS:-
+mysql> create view salespeople_count as select city, count(*) as total from salespeople group by city;
+Query OK, 0 rows affected (0.099 sec)
+mysql> select * from salespeople_count;
++-----------+-------+
+| city      | total |
++-----------+-------+
+| London    |     2 |
+| San Jose  |     2 |
+| Barcelona |     1 |
+| New York  |     1 |
++-----------+-------+
+4 rows in set (0.028 sec)
+
+3) Create a view that shows the average and total orders for each salesperson after his or her name. Assume all names are unique. 
+ANS:-
+mysql> create view salespeople_orders as select s.sname, avg(o.amt) as avg_amt, sum(o.amt) as total_amt from salespeople s join orders o on s.snum = o.snum group by s.sname;
+Query OK, 0 rows affected (0.085 sec)
+mysql> select * from salespeople_orders;
++---------+-------------+-----------+
+| sname   | avg_amt     | total_amt |
++---------+-------------+-----------+
+| Peel    |  767.190002 |    767.19 |
+| Serres  | 2182.050049 |   6546.15 |
+| Motika  | 1900.099976 |   1900.10 |
+| Rifkin  |  558.425017 |   1116.85 |
+| Axelrod | 1713.229980 |   1713.23 |
++---------+-------------+-----------+
+5 rows in set (0.054 sec)
+
+4) Create a view that shows each salesperson with multiple customers.
+ANS:-
+mysql> create view salespeople_multicust as select s.sname from salespeople s join customers c on s.snum = c.snum group by s.sname having count(c.cnum) > 1;
+Query OK, 0 rows affected (0.069 sec)
+mysql> select * from salespeople_multicust;
++--------+
+| sname  |
++--------+
+| Motika |
++--------+
+1 row in set (0.037 sec)

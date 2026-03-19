@@ -1,0 +1,65 @@
+Grant and Revoke.
+
+1) Give Amit the right to change the ratings of the customers. 
+ANS:-
+mysql> create user 'amit'@'localhost' identified by 'password123';
+Query OK, 0 rows affected (0.754 sec)
+
+mysql> grant update (rating) on customers to 'amit'@'localhost';
+Query OK, 0 rows affected (0.057 sec)
+
+2) Give Manoj the right to give other users the right to query the Orders table. 
+ANS:-
+mysql> create user 'manoj'@'localhost' identified by 'password123';
+Query OK, 0 rows affected (0.157 sec)
+
+mysql> grant select on orders to 'manoj'@'localhost' with grant option;
+Query OK, 0 rows affected (0.033 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected, 1 warning (0.146 sec)
+
+3) Take the INSERT privilege on Salespeople away from Ajita. 
+ANS:-
+mysql> create user 'ajita'@'localhost' identified by 'password123';
+Query OK, 0 rows affected (0.143 sec)
+
+mysql> grant insert on salespeople to 'ajita'@'localhost';
+Query OK, 0 rows affected (0.040 sec)
+
+mysql> revoke insert on salespeople from 'ajita'@'localhost';
+Query OK, 0 rows affected (0.041 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected, 1 warning (0.039 sec)
+
+4) Grant Abhijeet the right to insert or update the Customers table while keeping her possible rating values in the range of 100 to 500. 
+ANS:-
+mysql> create user 'abhijeet'@'localhost' identified by 'password123';
+Query OK, 0 rows affected (0.153 sec)
+
+mysql> grant insert, update on customers to 'abhijeet'@'localhost';
+Query OK, 0 rows affected (0.039 sec)
+
+mysql> alter table customers add constraint chk_rating check (rating between 100 and 500);
+Query OK, 6 rows affected (0.696 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> flush privileges;
+Query OK, 0 rows affected, 1 warning (0.042 sec)
+
+5) Allow Vikram to query the Customers table, but restrict his access to those customers whose rating is the lowest.
+ANS:-
+mysql> create user 'vikram'@'localhost' identified by 'password123';
+Query OK, 0 rows affected (0.161 sec)
+
+mysql> grant select on customers to 'vikram'@'localhost';
+Query OK, 0 rows affected (0.053 sec)
+
+mysql> create view lowest_customers as
+    -> select * from customers
+    -> where rating = (select min(rating) from customers);
+Query OK, 0 rows affected (0.075 sec)
+
+mysql> grant select on lowest_customers to 'vikram'@'localhost';
+Query OK, 0 rows affected (0.046 sec)
