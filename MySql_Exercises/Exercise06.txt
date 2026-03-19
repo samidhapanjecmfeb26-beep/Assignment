@@ -1,0 +1,66 @@
+  
+1. Display all the Suppliers with the same Status as the supplier, ‘CLARK’.  
+ANS:-
+ mysql> select * from s where status = (select status from s where sname = 'clark');
+Empty set (0.097 sec)
+
+2. Display all the Employees in the same department as the employee ‘MILLER’.  
+ANS:-
+ mysql> select * from emp where deptno = (select deptno from emp where ename = 'miller');
+Empty set (0.013 sec)
+ 
+3. Display all the Parts which have more Weight than all the Red parts.
+ANS:-
+mysql> select * from p where weight > (select max(weight) from p where color = 'red');
+Empty set (0.112 sec)
+   
+4. Display all the Projects going on in the same city as the project ‘TAPE’.  
+ANS:-
+mysql> select * from j where city = (select city from j where jname = 'tape');
+Empty set (0.011 sec)
+ 
+ 
+5. Display all the Parts with Weight less than all the Green parts.   
+ANS:-
+mysql> select * from p where weight < (select min(weight) from p where color = 'green');
+Empty set (0.020 sec) 
+
+6. Display the name of the Supplier who has sold the maximum Quantity (in one sale). 
+ANS:-
+mysql> select sname from s where `s#` = (select `s#` from spj where qty = (select max(qty) from spj));
++-------+
+| sname |
++-------+
+| ravi  |
++-------+
+1 row in set (0.014 sec) 
+  
+7. Display the name of the Employee with the minimum Salary.   
+ANS:-
+mysql> select ename from emp where sal = (select min(sal) from emp);
++-------+
+| ename |
++-------+
+| kiran |
++-------+
+1 row in set (0.010 sec)
+
+8. Display the name of the Supplier who has sold the maximum overall Quantity (sum of Sales). 
+ANS:-
+ mysql> select sname from s where `s#` = (select `s#` from spj group by `s#` order by sum(qty) desc limit 1);
++-------+
+| sname |
++-------+
+| ravi  |
++-------+
+1 row in set (0.059 sec)
+  
+9. Display the name of the Department with the maximum number of Employees.  
+ANS:-
+ mysql> select deptno from emp group by deptno order by count(*) desc limit 1;
++--------+
+| deptno |
++--------+
+|      1 |
++--------+
+1 row in set (0.094 sec)
