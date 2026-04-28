@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Paragraph Style</title>
+</head>
+<body>
+
+<p id="para">
+It is rightly said that being disciplined is essential in life...
+</p>
+
+<button onclick="changeStyle()">Change Style</button>
+
+<script>
+function changeStyle() {
+    let p = document.getElementById("para");
+    p.style.color = "blue";
+    p.style.fontSize = "20px";
+    p.style.fontFamily = "Arial";
+}
+</script>
+
+</body>
+</html>
