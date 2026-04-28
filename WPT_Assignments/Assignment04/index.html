@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WPT Lab Assignment 4</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        h2 {
+            color: #7c0505;
+        }
+        .output {
+            background: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #7c0505;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Callback Function Assignment</h1>
+
+<!-- Exercise 1 -->
+<h2>Exercise 1</h2>
+<div class="output" id="ex1"></div>
+
+<!-- Exercise 2 -->
+<h2>Exercise 2</h2>
+<div class="output" id="ex2"></div>
+
+<!-- Exercise 3 -->
+<h2>Exercise 3</h2>
+<div class="output" id="ex3"></div>
+
+<!-- Exercise 4 -->
+<h2>Exercise 4</h2>
+<div class="output" id="ex4"></div>
+
+<!-- Exercise 5 -->
+<h2>Exercise 5</h2>
+<div class="output" id="ex5"></div>
+
+<script>
+// Exercise 1
+function processData(str, callback) {
+    return callback(str);
+}
+function toUpperCase(str) {
+    return str.toUpperCase();
+}
+document.getElementById("ex1").innerText =
+    processData("hello world", toUpperCase);
+
+// Exercise 2
+function forEachElement(arr, callback) {
+    let result = "";
+    for (let i = 0; i < arr.length; i++) {
+        result += `Index ${i} Value ${callback(arr[i])}\n`;
+    }
+    return result;
+}
+document.getElementById("ex2").innerText =
+    forEachElement([1,2,3,4], function(el){ return el * 2; });
+
+// Exercise 3
+function fetchData(url, callback) {
+    setTimeout(() => {
+        callback("Data received from " + url);
+    }, 2000);
+}
+fetchData("https://api.example.com", function(response){
+    document.getElementById("ex3").innerText = response;
+});
+
+// Exercise 4
+function fetchDataWithError(url, callback) {
+    setTimeout(() => {
+        let error = Math.random() > 0.5 ? "Network Error!" : null;
+
+        if (error) {
+            callback(error, null);
+        } else {
+            callback(null, "Data from " + url);
+        }
+    }, 2000);
+}
+fetchDataWithError("https://api.example.com", function(error, response){
+    if(error){
+        document.getElementById("ex4").innerText = "Error: " + error;
+    } else {
+        document.getElementById("ex4").innerText = response;
+    }
+});
+
+// Exercise 5
+function processData2(data, callback){
+    callback(data.toUpperCase());
+}
+
+fetchDataWithError("https://api.example.com", function(error, response){
+    if(error){
+        document.getElementById("ex5").innerText = "Error: " + error;
+    } else {
+        processData2(response, function(result){
+            document.getElementById("ex5").innerText = result;
+        });
+    }
+});
+</script>
+
+</body>
+</html>
